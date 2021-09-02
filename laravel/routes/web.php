@@ -14,5 +14,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    dispatch(new \App\Jobs\FooJob(true));
+    dispatch(new \App\Jobs\FooJob(false));
+    return 'Hello World';
 });
+

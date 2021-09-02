@@ -11,16 +11,14 @@ declare(strict_types=1);
  */
 namespace App\Controller;
 
+use App\Job\FooJob;
+
 class IndexController extends Controller
 {
     public function index()
     {
-        $user = $this->request->input('user', 'Hyperf');
-        $method = $this->request->getMethod();
-        return $this->response->success([
-            'user' => $user,
-            'method' => $method,
-            'message' => 'Hello Hyperf.',
-        ]);
+        queue_push(new FooJob(true));
+        queue_push(new FooJob(false));
+        return $this->response->success('Hello World.');
     }
 }
